@@ -17,7 +17,7 @@ except Exception as e:
 class GCG( ABC.BaseClass ):
     """
         Apply the GCG algorithm (https://arxiv.org/pdf/2307.15043.pdf)
-        to the inverse problem for image generation
+        to find prompts for image generation
     """
  
     def __init__( self, search_strategy, config, **kwargs ):

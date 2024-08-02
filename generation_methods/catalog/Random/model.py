@@ -16,8 +16,7 @@ except Exception as e:
     
 class Random( ABC.BaseClass ):
     """
-        Apply the GCG algorithm (https://arxiv.org/pdf/2307.15043.pdf)
-        to the inverse problem for image generation
+        Apply a Random Search to find prompts from image generation
     """
  
     def __init__( self, search_strategy, config,  batch_size = 20, search_ball = 'l2', **kwargs ):

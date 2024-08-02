@@ -1,0 +1,17 @@
+# COMPILED BYTECODE FOR IMPORTS #
+#################################
+*.pyc
+
+# SAVED FILES & NOTEBOOKS #
+###########################
+*.pt
+*.ipynb
+
+# DIRECTORIES #
+###############
+legacy/
+
+# IMAGES #
+##########
+*.png
+prompt.txt

@@ -14,7 +14,7 @@ except Exception as e:
 class PEZ( ABC.BaseClass ):
     """
         Apply the PEZ algorithm (https://arxiv.org/pdf/2302.03668.pdf)
-        to the inverse problem for image generation
+        to find prompts for image generation
     """
     def __init__( self, search_strategy, config, **kwargs ):
         """

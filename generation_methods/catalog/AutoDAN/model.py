@@ -15,8 +15,8 @@ except Exception as e:
     
 class AutoDAN( ABC.BaseClass ):
     """
-        Apply the GCG algorithm (https://arxiv.org/pdf/2307.15043.pdf)
-        to the inverse problem for image generation
+        Apply the AutoDAN algorithm (https://arxiv.org/pdf/2310.04451)
+        to find prompts for image generation
     """
 
     def __init__( self, 

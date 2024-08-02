@@ -66,7 +66,8 @@ class BackwardPassInfo( torch.autograd.Function ):
 
 class StableDiffusion( LanguageUtils ):
     """
-    Driver for working with CLIP.
+    Implementation of prompt inversion through diffuser.
+    Based on: https://arxiv.org/pdf/2312.12416
     """
 
     def __init__( self, pipeline, text_model, tokenizer, vocab, config, **kwargs  ):
