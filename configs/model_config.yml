@@ -1,0 +1,61 @@
+runtime_parameters:
+  prompt_length: 0             # number of free tokens to optimize
+  steps: 16                   # number of steps for the generation method to run
+  generation_method: AutoDAN        # generation method (see below)
+  search_strategy: beam_search  # search strategy (see below)
+  models:
+    adapter_params:
+      save_gradients_to: ./gradients
+      max_examples_per_case: 16834
+      max_subtokens: 4
+
+    primary_model:             
+      model_id: gpt2-medium  # huggingface model id
+      loss_function:            # only necessary for causal language models
+        type: nll_loss          # log_prob_loss, kl_div_loss, nll_loss or cross_entropy_loss
+        label: "Sure, here's"   # Target label. Only used with cross_entropy
+      
+      parameters:
+        weight: 1.              # how much to weight this model's loss by in the objective
+        prefix: "An image of"    # prefix to append to the beginning of the free tokens
+        suffix: ""              # suffix to append to the end of the free tokens
+
+    secondary_models:
+      - model_id: openai/clip-vit-base-patch32  # huggingface model id
+        loss_function:            # only necessary for causal language models
+          type: cross_entropy_loss          # log_prob_loss, kl_div_loss, nll_loss or cross_entropy_loss
+          label: "Sure, here's"   # Target label. Only used with cross_entropy
+        
+        parameters:
+          weight: 22.              # how much to weight this model's loss by in the objective
+          prefix: "An image of"    # prefix to append to the beginning of the free tokens
+          suffix: ""              # suffix to append to the end of the free tokens
+
+strategies:
+  beam_search:
+    beam_width: 4               # beam width when calling beam search
+
+  greedy_search:                # greedy search does not require additional parameters
+
+  uniform_cost_search:
+    frontier_max_size: 32       # Throw away elements in the uniform cost search frontier above this size
+
+generation_methods:
+  gcg:                          # https://arxiv.org/pdf/2307.15043
+    batch_size: 512             # compute true losses for the best {batch_size} candidates
+    top_k: 256                  # choose candidates from {top_k} gradients for each free token
+
+  autodan:                      # https://arxiv.org/pdf/2310.15140
+    batch_size: 256             # compute true losses for the best {batch_size} candidates
+    logit_weight: 1.            # how much to weight readability vs gradient
+
+  random:
+    batch_size: 128             # compute true losses for the best {batch_size} candidates
+    search_ball: L0 # L2, L0    # what kind of ball to sample candidates from
+
+  pez:                          # https://arxiv.org/pdf/2302.03668
+    lr: 0.1                     # step size
+    weight_decay: 0.1           # weight decay
+
+  caption:
+    model_id: Salesforce/blip2-opt-2.7b   # huggingface id for captioner
