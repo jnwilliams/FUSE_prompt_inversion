@@ -36,7 +36,7 @@ This repository provides an implementation of a simple adapter, which we call FU
 
 Once the environment is set up, the following is a minimal example to caption an image by optimizing a prompt over GPT2-medium and CLIP-VIT-B32.
 
-`python find_prompt.py --image_path images/test_images/house.png --config_file configs/model_config.yml`
+`python find_prompt.py --image_path images/house.png --config_file configs/model_config.yml`
 
 ## Configuration
 
