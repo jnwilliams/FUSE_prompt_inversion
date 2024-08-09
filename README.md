@@ -23,7 +23,7 @@ This repository provides an implementation of a simple adapter, which we call FU
 1. Clone the repository:
    ```
    git clone git@github.com:jnwilliams/FUSE_prompt_inversion.git
-   cd your-repo
+   cd FUSE_prompt_inversion
    ```
 
 2. Create a new environment using conda (use `spec-file-windows.txt` if on windows machines):
