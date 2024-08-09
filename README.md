@@ -22,7 +22,7 @@ This repository provides an implementation of a simple adapter, which we call FU
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/your-repo.git
+   git clone git@github.com:jnwilliams/FUSE_prompt_inversion.git
    cd your-repo
    ```
 
