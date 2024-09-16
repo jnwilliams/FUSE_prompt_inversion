@@ -14,7 +14,7 @@
 
 ## Overview
 
-Welcome to the official GitHub repository for FUSE-ing Language Models: Zero-Shot Adapter Discovery for Prompt Optimization Across Tokenizers (arXiv: [arXiv ID]).
+Welcome to the official GitHub repository for FUSE-ing Language Models: Zero-Shot Adapter Discovery for Prompt Optimization Across Tokenizers (arXiv: https://arxiv.org/pdf/2408.04816).
 
 This repository provides an implementation of a simple adapter, which we call FUSE (Flexible Unification of Semantic Embeddings), that acts as an inexpensive approximation to an adapter layer that maps from one model’s textual embedding space to another, even across different tokenizers. In this repository, we provide several discrete optimizers for prompt optimization on image generation models that can be used to test the efficacy of the adapter or for a variety of prompt optimization related tasks in image generation.
 
@@ -37,6 +37,10 @@ This repository provides an implementation of a simple adapter, which we call FU
 Once the environment is set up, the following is a minimal example to caption an image by optimizing a prompt over GPT2-medium and CLIP-VIT-B32.
 
 `python find_prompt.py --image_path images/house.png --config_file configs/model_config.yml`
+
+> On the first run with any new combination of models, the program performs an initial set of computations that may take 15–20 minutes. This includes calculating the Moore-Penrose inverse across embedding tensors and performing tensor products, which are handled by the CPU due to CUDA limitations.
+>
+> After the initial run, the results are saved in the ./gradients/ folder (you can change the location in the config file). Subsequent runs with the same model combination will load these precomputed results, significantly speeding up execution by using the GPU.
 
 ## Configuration
 
