@@ -173,15 +173,16 @@ class GCG( ABC.BaseClass ):
                 try:
                     record_list = iter( self.intermediate_record_interval )
                     if i in record_list:
-                        self.intermediate_results.append( { "step": i, "prompt": self._model.primary_model.to_text( x )[0], "loss": loss.item() } )
+                        self.intermediate_results.append( { "step": i, "prompt": self._model.primary_model.to_text( x )[0], "loss": loss } )
                     
                 except TypeError:
                     if ( i % self.intermediate_record_interval ) == 0:
-                        self.intermediate_results.append( { "step": i, "prompt": self._model.primary_model.to_text( x )[0], "loss": loss.item() } )
+                        self.intermediate_results.append( { "step": i, "prompt": self._model.primary_model.to_text( x )[0], "loss": loss } )
                     
-            if loss < best[0]:
-                print( f"\nNew Best \t Loss: {loss} - {self._model.primary_model.to_text( x_proj )}\n" )
-                best = ( loss.min(), x[ loss.argmin( keepdim=True ) ] , time.time() - tic, i )
+            if loss.min() < best[0]:
+                min_idx = loss.argmin()
+                print( f"\nNew Best \t Loss: {loss[min_idx]} - {self._model.primary_model.to_text( x_proj[min_idx].unsqueeze(0) )}\n" )
+                best = ( loss[min_idx], x_proj[ min_idx ].unsqueeze(0) , time.time() - tic, i )
 
             print( f"Iter: {i} - Loss: {loss} - {self._model.primary_model.to_text( x_proj )}")
 
